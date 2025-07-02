@@ -1,0 +1,32 @@
+<!-- login.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Login - EmoTouch</title>
+  <link rel="stylesheet" href="auth.css" />
+</head>
+<body>
+  <div class="auth-container">
+    <h2>EmoTouch Login</h2>
+    <input type="email" id="loginEmail" placeholder="Email" />
+    <input type="password" id="loginPassword" placeholder="Password" />
+    <button onclick="login()">Login</button>
+    <p>Don't have an account? <a href="signup.html">Sign up</a></p>
+  </div>
+  <script>
+    function login() {
+      const email = document.getElementById("loginEmail").value;
+      const password = document.getElementById("loginPassword").value;
+      const users = JSON.parse(localStorage.getItem("users")) || {};
+      if (users[email] && users[email] === password) {
+        localStorage.setItem("currentUser", email);
+        window.location.href = "emotion.html";
+      } else {
+        alert("Invalid email or password.");
+      }
+    }
+  </script>
+</body>
+</html>

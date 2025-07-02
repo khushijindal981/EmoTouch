@@ -1,0 +1,38 @@
+<!-- signup.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Sign Up - EmoTouch</title>
+  <link rel="stylesheet" href="auth.css" />
+</head>
+<body>
+  <div class="auth-container">
+    <h2>EmoTouch Sign Up</h2>
+    <input type="email" id="signupEmail" placeholder="Email" />
+    <input type="password" id="signupPassword" placeholder="Password" />
+    <button onclick="signup()">Sign Up</button>
+    <p>Already have an account? <a href="login.html">Login</a></p>
+  </div>
+  <script>
+    function signup() {
+      const email = document.getElementById("signupEmail").value;
+      const password = document.getElementById("signupPassword").value;
+      if (email && password) {
+        const users = JSON.parse(localStorage.getItem("users")) || {};
+        if (users[email]) {
+          alert("User already exists!");
+        } else {
+          users[email] = password;
+          localStorage.setItem("users", JSON.stringify(users));
+          alert("Signup successful! Now login.");
+          window.location.href = "login.html";
+        }
+      } else {
+        alert("Please fill all fields.");
+      }
+    }
+  </script>
+</body>
+</html>

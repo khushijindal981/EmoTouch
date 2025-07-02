@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>EmoTouch - Emotion Connect</title>
+  <link rel="stylesheet" href="emotion.css" />
+</head>
+<body>
+  <div class="container">
+    <h2>Welcome to EmoTouch</h2>
+
+    <div class="mood-selection">
+      <p>Select your mood:</p>
+      <div class="mood-buttons">
+        <button onclick="handleMoodChange('happy')" style="background-color:rgba(255,105,180,0.9) ;">😊 Happy</button>
+        <button onclick="handleMoodChange('sad')" style="background-color:rgba(123,104,238,0.8) ;">😢 Sad</button>
+        <button onclick="handleMoodChange('romantic')" style="background-color:rgba(255,240,245,0.85) ;">❤ Romantic</button>
+        <button onclick="handleMoodChange('fear')" style="background-color:rgba(25,25,112,0.85) ;">😨 Fear</button>
+        <button onclick="handleMoodChange('lost')" style="background-color:rgba(150,180,180,0.8) ;">🕊 Lost</button>
+      </div>
+    </div>
+
+    <div class="quote-box" id="quoteBox">Your emotional quote will appear here...</div>
+
+    <div class="note-box">
+      <textarea id="noteInput" placeholder="Write your thoughts here..."></textarea>
+      <div id="noteBox"></div>
+      <button onclick="saveNote()">Save Note</button>
+    </div>
+
+    <div class="message-box" id="messageBox">Mood message appears here...</div>
+
+    <a class="view-history" href="history.html">View Saved Notes</a>
+    <button class="logout" onclick="logout()">Logout</button>
+  </div>
+
+  <!-- 🎵 Hidden Audio Player -->
+  <audio id="bgMusic" autoplay loop>
+    <source src="" type="audio/mpeg" />
+    Your browser does not support the audio tag.
+  </audio>
+
+  <script src="emotion.js"></script>
+</body>
+</html>

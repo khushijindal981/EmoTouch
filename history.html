@@ -1,0 +1,80 @@
+<!-- history.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>My Emotion History - EmoTouch</title>
+  <link rel="stylesheet" href="history.css" />
+</head>
+<body>
+  <div class="container">
+    <h2>📖 Your Mood Journal</h2>
+    <div id="historyContainer"></div>
+    <button onclick="logout()" class="logout">Logout</button>
+  </div>
+
+  <script>
+    function loadHistory() {
+  const allNotes = JSON.parse(localStorage.getItem("notes") || "{}");
+  const container = document.getElementById("historyContainer");
+  container.innerHTML = "";
+
+  const moods = Object.keys(allNotes);
+  if (moods.length === 0) {
+    container.innerHTML = "<p style='text-align:center;'>No notes saved yet.</p>";
+    return;
+  }
+
+  moods.forEach((mood) => {
+    const moodBox = document.createElement("div");
+    moodBox.classList.add("mood-history");
+
+    const title = document.createElement("h3");
+    title.textContent = mood.charAt(0).toUpperCase() + mood.slice(1);
+    moodBox.appendChild(title);
+
+    const notes = allNotes[mood];
+    if (notes.length === 0) {
+      const noNote = document.createElement("p");
+      noNote.textContent = "No notes.";
+      moodBox.appendChild(noNote);
+    } else {
+      notes.forEach((note, index) => {
+        const noteItem = document.createElement("div");
+        noteItem.classList.add("note-item");
+
+        noteItem.innerHTML = `
+          <p>${note}</p>
+          <button onclick="deleteNote('${mood}', ${index})">🗑 Delete</button>
+        `;
+        moodBox.appendChild(noteItem);
+      });
+    }
+
+    container.appendChild(moodBox);
+  });
+}
+
+// Delete a specific note in history
+function deleteNote(mood, index) {
+  let allNotes = JSON.parse(localStorage.getItem("notes") || "{}");
+  if (!allNotes[mood]) return;
+
+  allNotes[mood].splice(index, 1);
+  if (allNotes[mood].length === 0) {
+    delete allNotes[mood];
+  }
+
+  localStorage.setItem("notes", JSON.stringify(allNotes));
+  loadHistory();
+}
+
+function goBack() {
+  window.location.href = "emotion.html";
+}
+
+window.onload = loadHistory;
+  </script>
+</body>
+</html>
